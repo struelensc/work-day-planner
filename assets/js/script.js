@@ -1,7 +1,8 @@
+// Document handles
 var dayDisplayEl = $("#currentDay");
 var buttons = $("button");
 
-// timeblock handles
+// Timeblock handles
 var nine = $("#9AM").children().eq(1);
 var ten = $("#10AM").children().eq(1);
 var eleven = $("#11AM").children().eq(1);
@@ -25,7 +26,7 @@ function getCurrentHour() {
     return rightNow;
 }
 
-// Colors the time blocks according to the current postioning in time
+// Colors the time blocks in respect to the current time
 function colorTimeBlocks() {
     var rightNow = getCurrentHour();
 
@@ -44,17 +45,14 @@ function colorTimeBlocks() {
 
 // Saves tasks to local storage
 buttons.on("click", function(event) {
-    var eventSelector = event.target.id;
-    var textLocationId = $("#" + eventSelector).parent("section").attr("id");
-    var textLocation = $("#" + textLocationId);
-    var task = textLocation.children("textarea").val();
-
-    console.log(eventSelector);
-    
-    localStorage.setItem(textLocationId, task);
+    var btnClicked = event.target;
+    var parentDiv = $(btnClicked).parents(".row");
+    var parentDivId = parentDiv[0].id;
+    var task = parentDiv[0].children[1].value;
+    localStorage.setItem(parentDivId, task);
 })
 
-// Loads tasks saved from local storage
+// Loads tasks saved in local storage
 function loadTasks() {
     var len = localStorage.length;
     
